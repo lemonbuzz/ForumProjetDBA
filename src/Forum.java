@@ -58,13 +58,17 @@ public class Forum {
         this.collectionDicussions.insertOne(doc);
     }
 
-    public void addMessage(){
+    public void addMessage(String message) throws ParseException {
 
+        Document doc = new Document("message", message).
+                append("date", this.getDate());
+
+        this.collectionDicussions.insertOne(doc);
     }
 
-    public void test() {
+    public void printAllDocsInCollection(String collection) {
 
-        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
+        FindIterable<Document> iterable = forumDataBase.getCollection(collection).find();
 
         iterable.forEach(new Block<Document>() {
             @Override
@@ -90,15 +94,10 @@ public class Forum {
         Forum ourForum = new Forum();
 
         ourForum.addDiscution("Bonjour", "LES POUBELLES CALISS, SORT LES!");
-        //System.out.println(ourForum.getDate());
-        //System.out.print("YO");
 
+        ourForum.addMessage("YOOO");
 
-        System.out.println(ourForum.getDate());
-
-        ourForum.test();
-
+        ourForum.printAllDocsInCollection("collectionMessages");
 
     }
-
 }
