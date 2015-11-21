@@ -10,7 +10,25 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/mongo-java-driver-2.13.3.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/bson-3.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/mongo-java-driver-3.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/mongodb-driver-core-3.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
