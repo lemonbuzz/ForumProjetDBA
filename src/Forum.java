@@ -67,16 +67,11 @@ public class Forum {
         this.collectionDicussions.insertOne(doc);
     }
 
-    public void printAllDocsInCollection(String collection) {
+    public void printAllDocsInCollection() {
 
-        FindIterable<Document> iterable = forumDataBase.getCollection(collection).find();
+        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
 
-        iterable.forEach(new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document);
-            }
-        });
+        this.iterateDocumentsInCollection("collectionMessages",iterable);
 
     }
 
@@ -85,12 +80,7 @@ public class Forum {
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find(
                 new Document("sujetConcerne", idOfDicussion));
 
-        iterable.forEach(new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document);
-            }
-        });
+        this.iterateDocumentsInCollection("collectionMessages",iterable);
 
     }
 
@@ -98,10 +88,16 @@ public class Forum {
 
         FindIterable<Document> iterable = forumDataBase.getCollection(collection).find();
 
+        this.iterateDocumentsInCollection("collectionMessages",iterable);
+
+    }
+
+    public void iterateDocumentsInCollection(String collection, FindIterable<Document> iterable) {
+
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
-
+                System.out.println(document);
             }
         });
 
@@ -123,14 +119,14 @@ public class Forum {
 
         ourForum.addDiscution("Bonjour", "LES POUBELLES CALISS, SORT LES!");
 
-        ourForum.addMessage("YOOO", 321312);
-        ourForum.addMessage("YOdadad", 321312);
-        ourForum.addMessage("Ydwqdqwdqw", 321312);
+        //test with all the same ids
+        ourForum.addMessage("Ca pue le chien mouillé", 321312);
+        ourForum.addMessage("BAAAAAAAAACON", 321312);
+        ourForum.addMessage("ERIC LABONNNTE ( UK ACCENT )", 321312);
         ourForum.addMessage("Ydwqdqwdqwdqwdwq", 321312);
 
 
-
-        ourForum.printAllDocsInCollection("collectionMessages");
+        ourForum.printAllDocsInCollection();
         System.out.println("---------------------");
         System.out.println("THIS IS WHAT YOU WANT");
         ourForum.findThis(321312);
