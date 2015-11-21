@@ -15,26 +15,7 @@ public class ForumView extends JFrame {
     private JPanel panel;
 
     private Forum forum;
-
-
-    private int tempVAR_NbMessages = 10;
-
-    private JButton btnNewButton;
-    private JButton btnNewButton_1;
-    private JButton btnNewButton_2;
-    private JButton btnNewButton_3;
-    private JButton btnNewButton_4;
-    private JButton btnNewButton_5;
-    private JButton btnNewButton_6;
-    private JButton btnNewButton_7;
-    private JButton btnNewButton_8;
-    private JButton btnNewButton_9;
-    private JButton btnNewButton_10;
-    private JButton btnNewButton_11;
-    private JButton btnNewButton_12;
-    private JButton btnNewButton_13;
-
-
+    
     private Ecouteur ec;
 
     public ForumView(Forum forum) {
