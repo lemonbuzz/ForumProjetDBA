@@ -131,5 +131,7 @@ public class Forum {
         System.out.println("THIS IS WHAT YOU WANT");
         ourForum.findThis(321312);
 
+        new ForumView();
+
     }
 }
