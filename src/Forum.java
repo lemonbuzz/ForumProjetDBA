@@ -58,10 +58,11 @@ public class Forum {
         this.collectionDicussions.insertOne(doc);
     }
 
-    public void addMessage(String message) throws ParseException {
+    public void addMessage(String message, int idSujet) throws ParseException {
 
         Document doc = new Document("message", message).
-                append("date", this.getDate());
+                append("date", this.getDate()).
+                append("sujetConcerne", idSujet);
 
         this.collectionDicussions.insertOne(doc);
     }
@@ -74,6 +75,33 @@ public class Forum {
             @Override
             public void apply(final Document document) {
                 System.out.println(document);
+            }
+        });
+
+    }
+
+    public void findThis(int idOfDicussion) {
+
+        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find(
+                new Document("sujetConcerne", idOfDicussion));
+
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                System.out.println(document);
+            }
+        });
+
+    }
+
+    public void getAllIds(String collection) {
+
+        FindIterable<Document> iterable = forumDataBase.getCollection(collection).find();
+
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+
             }
         });
 
@@ -95,9 +123,17 @@ public class Forum {
 
         ourForum.addDiscution("Bonjour", "LES POUBELLES CALISS, SORT LES!");
 
-        ourForum.addMessage("YOOO");
+        ourForum.addMessage("YOOO", 321312);
+        ourForum.addMessage("YOdadad", 321312);
+        ourForum.addMessage("Ydwqdqwdqw", 321312);
+        ourForum.addMessage("Ydwqdqwdqwdqwdwq", 321312);
+
+
 
         ourForum.printAllDocsInCollection("collectionMessages");
+        System.out.println("---------------------");
+        System.out.println("THIS IS WHAT YOU WANT");
+        ourForum.findThis(321312);
 
     }
 }
