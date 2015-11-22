@@ -15,7 +15,7 @@ public class ForumView extends JFrame {
     private JPanel panel;
 
     private Forum forum;
-    
+
     private Ecouteur ec;
 
     public ForumView(Forum forum) {
@@ -34,6 +34,7 @@ public class ForumView extends JFrame {
         mainPanel.setLayout(null);
 
         scrollPane = new JScrollPane();
+        scrollPane.getVerticalScrollBar().setUnitIncrement(8);
         scrollPane.setBounds(0, 101, 880, 335);
         mainPanel.add(scrollPane);
 
@@ -42,16 +43,16 @@ public class ForumView extends JFrame {
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
 
-        for ( int i = 0; i < 50; i++) {
-
+        for ( int i = 0; i < 50; i++)
             panel.add ( new PanelMessage() );
 
 
 
-        }
 
 
     }
+
+
 
     private class PanelMessage extends JPanel {
 
@@ -96,15 +97,15 @@ public class ForumView extends JFrame {
         @Override
         public void mouseEntered(MouseEvent me) {
 
-            ForumView.this.setBackground(Color.RED);
+            me.getComponent().setBackground(Color.RED);
 
 
         }
 
         @Override
-        public void mouseExited(MouseEvent arg0) {
+        public void mouseExited(MouseEvent me) {
 
-            ForumView.this.setBackground(null);
+            me.getComponent().setBackground(null);
 
         }
 
