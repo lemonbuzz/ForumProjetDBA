@@ -25,10 +25,14 @@ import java.util.Locale;
 import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 import org.bson.Document;
 import com.mongodb.client.FindIterable;
+import org.bson.types.ObjectId;
 
 import javax.print.Doc;
+
+import static java.util.Arrays.asList;
 
 
 public class Forum {
@@ -51,21 +55,21 @@ public class Forum {
 
     public void addDiscution(String nomDuSujet,String message) throws ParseException {
 
-        Document doc = new Document("nomDuSujet", nomDuSujet).
-                append("message", message).
-                append("date", this.getDate());
+        Document nouvelleDiscution = new Document("nomSujet", message).append("messages", asList(getMessageDoc(message)));
 
-        this.collectionDicussions.insertOne(doc);
+        collectionDicussions.insertOne(nouvelleDiscution);
+    }
+
+    public Document getMessageDoc(String message) throws ParseException {
+
+        return new Document("message", message).append("date", getDate());
+
     }
 
     public void addMessage(String message, int idSujet) throws ParseException {
 
-        Document doc = new Document("message", message).
-                append("date", this.getDate()).
-                append("sujetConcerne", idSujet);
-
-        this.collectionDicussions.insertOne(doc);
     }
+
 
     public void printAllDocsInCollection() {
 
@@ -117,19 +121,9 @@ public class Forum {
 
         Forum ourForum = new Forum();
 
-        ourForum.addDiscution("Bonjour", "LES POUBELLES CALISS, SORT LES!");
-
-        //test with all the same ids
-        ourForum.addMessage("Ca pue le chien mouillé", 321312);
-        ourForum.addMessage("BAAAAAAAAACON", 321312);
-        ourForum.addMessage("ERIC LABONNNTE ( UK ACCENT )", 321312);
-        ourForum.addMessage("Ydwqdqwdqwdqwdwq", 321312);
-
+        ourForum.addDiscution("Bonjour", "Sors les caliss de poubelles");
 
         ourForum.printAllDocsInCollection();
-        System.out.println("---------------------");
-        System.out.println("THIS IS WHAT YOU WANT");
-        ourForum.findThis(321312);
 
         new ForumView(ourForum);
 

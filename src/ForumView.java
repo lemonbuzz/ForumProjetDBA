@@ -28,7 +28,7 @@ public class ForumView extends JFrame {
         getContentPane().setLayout(null);
         this.setVisible(true);
         mainPanel = new JPanel();
-        mainPanel.setBackground(SystemColor.textHighlight);
+        mainPanel.setBackground(new Color(127, 140, 141));
 
         this.setContentPane(mainPanel);
         mainPanel.setLayout(null);
@@ -42,7 +42,7 @@ public class ForumView extends JFrame {
         scrollPane.setViewportView(panel);
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
-
+        //Test
         for ( int i = 0; i < 50; i++)
             panel.add ( new PanelMessage() );
 
@@ -63,13 +63,18 @@ public class ForumView extends JFrame {
 
         public PanelMessage() {
 
+            FlowLayout myFlowLayOut = new FlowLayout(FlowLayout.CENTER, 5, 5);
 
-            this.setBounds(0, 0, 300, 600);
-            this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+            myFlowLayOut.setVgap(15);
+
+
+            /*this.setBounds(0, 0, 300, 600);*/
+            this.setLayout( myFlowLayOut );
 
             this.addMouseListener(ec);
 
             labelTitreForum = new JLabel("Titre de la Publication");
+
             this.add(labelTitreForum);
 
             labelNbMsg = new JLabel("Nombre de message");
@@ -97,7 +102,7 @@ public class ForumView extends JFrame {
         @Override
         public void mouseEntered(MouseEvent me) {
 
-            me.getComponent().setBackground(Color.RED);
+            me.getComponent().setBackground(new Color(41, 128, 185));
 
 
         }
