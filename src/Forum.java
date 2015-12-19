@@ -2,38 +2,19 @@
  * Created by Alexandre on 2015-11-20.
  */
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.BulkWriteOperation;
-import com.mongodb.BulkWriteResult;
-import com.mongodb.Cursor;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.ParallelScanOptions;
-import com.mongodb.ServerAddress;
 
-import java.lang.annotation.Documented;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-import java.text.Format;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Vector;
+import java.util.*;
 
 import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
 import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import org.bson.types.ObjectId;
-
-import javax.print.Doc;
 
 import static java.util.Arrays.asList;
 
@@ -65,10 +46,10 @@ public class Forum {
         collectionDicussions.insertOne(nouvelleDiscution);
     }
 
-    public Vector<Dicussion> getDicussions() {
+    public Vector<Discussion> getDicussions() {
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
-        Vector<Dicussion> vectDicussion = new Vector<Dicussion>();
+        Vector<Discussion> vectDicussion = new Vector<Discussion>();
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
@@ -78,7 +59,7 @@ public class Forum {
 
                 ArrayList<Document> messages = (ArrayList<Document>)document.get("messages");
 
-                vectDicussion.add( new Dicussion(nomSujet,_id,messages ) );
+                vectDicussion.add( new Discussion(nomSujet,_id,messages ) );
 
             }});
 
@@ -122,9 +103,15 @@ public class Forum {
     public String getDate() throws ParseException {
 
         Date aujourdhui = new Date();
-        DateFormat formatDeDate = new SimpleDateFormat("d MMM", Locale.CANADA_FRENCH);
+        //DateFormat formatDeDate = new SimpleDateFormat("d MMM", Locale.CANADA_FRENCH);
 
-        return formatDeDate.format(aujourdhui);
+        //return formatDeDate.format(aujourdhui);
+
+        //return aujourdhui
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(cal.getTime());
     }
 
     /*FONCTION TEMPORAIRE MAIN*/
@@ -135,16 +122,16 @@ public class Forum {
 
         //ourForum.addDiscution("Le forum fonctionne", "Caliss de sain ciboire");
 
-        ourForum.addMessage("connard", new ObjectId("56758d834c0fba1a9005ad21"));
+        ourForum.addMessage("cest cool", new ObjectId("56758d834c0fba1a9005ad21"));
 
-        Vector<Dicussion> discussions = ourForum.getDicussions();
+        Vector<Discussion> discussions = ourForum.getDicussions();
 
 
         System.out.println("BIENVENU AU FORUM DES BROS!!!!!!!!!!!");
         System.out.println("--------------------------------------");
 
 
-        for ( Dicussion myDicussions : discussions) {
+        for ( Discussion myDicussions : discussions) {
 
             String titre = myDicussions.getTitre();
 

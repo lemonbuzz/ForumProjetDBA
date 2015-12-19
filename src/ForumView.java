@@ -1,14 +1,9 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.GroupLayout.Alignment;
+import java.util.Vector;
 
 /**
  * Created by Alexandre on 2015-11-20.
@@ -19,6 +14,9 @@ public class ForumView extends JFrame {
     private JPanel panel;
 
     private Forum forum;
+
+    private Vector<Discussion> vectDiscussion;
+
 
     private Ecouteur ec;
 
@@ -46,9 +44,18 @@ public class ForumView extends JFrame {
         scrollPane.setViewportView(panel);
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
+        vectDiscussion = forum.getDicussions();
+
         //Test
-        for ( int i = 0; i < 50; i++)
-            panel.add ( new PanelMessage("Titre thread", "2", "18 nov") );
+        for ( Discussion discussions : vectDiscussion  ) {
+
+            String titre = discussions.getTitre();
+            int size = discussions.getVectMessages().size();
+
+            String dateDernierMessage = (String)discussions.getVectMessages().get(size - 1).get("date");
+
+            panel.add(new PanelMessage(titre, String.valueOf(size), dateDernierMessage ));
+        }
 
     }
 
