@@ -69,7 +69,6 @@ public class Forum {
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
         Vector<Dicussion> vectDicussion = new Vector<Dicussion>();
-        Vector<String> vectMessages = new Vector<String>();
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
@@ -78,12 +77,6 @@ public class Forum {
                 String nomSujet = (String)document.get("nomSujet");
 
                 ArrayList<Document> messages = (ArrayList<Document>)document.get("messages");
-
-
-                //System.out.println("--------------------");
-                //System.out.println(nomSujet);
-                //System.out.println(_id);
-                // System.out.println(messages);
 
                 vectDicussion.add( new Dicussion(nomSujet,_id,messages ) );
 
