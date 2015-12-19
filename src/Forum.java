@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.Format;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Vector;
@@ -76,20 +77,19 @@ public class Forum {
                 ObjectId _id = (ObjectId)document.get("_id");
                 String nomSujet = (String)document.get("nomSujet");
 
-                Object object = document.get("messages");
+                ArrayList<Document> messages = (ArrayList<Document>)document.get("messages");
 
 
+                //System.out.println("--------------------");
+                //System.out.println(nomSujet);
+                //System.out.println(_id);
+                // System.out.println(messages);
 
-                System.out.println("--------------------");
-                System.out.println(nomSujet);
-                System.out.println(_id);
-                System.out.println(object);
-
-                //vectDicussion.add( new Dicussion(nomSujet,_id,))
+                vectDicussion.add( new Dicussion(nomSujet,_id,messages) );
 
             }});
 
-        return null;
+        return vectDicussion;
     }
 
 
@@ -145,9 +145,9 @@ public class Forum {
 
         //ourForum.addMessage("hahaha vous etes fou", new ObjectId("56758d834c0fba1a9005ad21"));
 
-        ourForum.getDicussions();
+        System.out.println(ourForum.getDicussions().elementAt(0).getTitre());
 
-        ourForum.printAllDocsInCollection();
+        //ourForum.printAllDocsInCollection();
 
         new ForumView(ourForum);
 

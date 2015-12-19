@@ -1,5 +1,7 @@
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -10,9 +12,9 @@ public class Dicussion {
     String titre;
     String messageInitial;
     ObjectId _id;
-    Vector<String> vectMessages;
+    ArrayList<Document> vectMessages;
 
-    public Dicussion(String titre, ObjectId _id, Vector<String> vectMessages) {
+    public Dicussion(String titre, ObjectId _id, ArrayList<Document> vectMessages) {
         this.titre = titre;
         this._id = _id;
         this.vectMessages = vectMessages;
