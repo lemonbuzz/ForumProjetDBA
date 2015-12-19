@@ -56,7 +56,7 @@ public class Forum {
                 ObjectId _id = (ObjectId)document.get("_id"); //renvoie le ID du thread
                 String nomSujet = (String)document.get("nomSujet"); //renvoie le nom du thread
 
-                ArrayList<Document> messages = (ArrayList<Document>)document.get("messages"); //renvoie un arraylist des items 'messages'. chacun contenant un message,un auteur et une date de publication
+                ArrayList<Document> messages = (ArrayList<Document>)document.get("messages"); //renvoie un arraylist des items de l'array 'messages'. chacun contenant un message,un auteur et une date de publication
 
                 vectDicussion.add( new Discussion(nomSujet,_id,messages ) );
 
@@ -65,25 +65,14 @@ public class Forum {
         return vectDicussion;
     }
 
-
     public void addMessage(String message, ObjectId id) throws ParseException {
 
         collectionDicussions.updateOne( new Document("_id", id), new Document("$push", new Document("messages", getMessageDoc(message))));
     }
 
-
     public void printAllDocsInCollection() {
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
-
-        this.iterateDocumentsInCollection("collectionMessages",iterable);
-
-    }
-
-    public void findThis(int idOfDicussion) {
-
-        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find(
-                new Document("sujetConcerne", idOfDicussion));
 
         this.iterateDocumentsInCollection("collectionMessages",iterable);
 
@@ -107,6 +96,4 @@ public class Forum {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
         return sdf.format(cal.getTime());
     }
-
-
 }

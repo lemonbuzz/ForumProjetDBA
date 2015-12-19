@@ -142,3 +142,28 @@ public class ForumMainMenu extends JFrame {
     }
 
 }
+//console gui, only for reals
+/*Vector<Discussion> discussions = ourForum.getDicussions();
+
+
+        System.out.println("BIENVENU AU FORUM DES BROS!!!!!!!!!!!");
+        System.out.println("--------------------------------------");
+
+
+        for ( Discussion myDicussions : discussions) {
+
+            String titre = myDicussions.getTitre();
+
+            System.out.println("-->DISCUSSION: " + titre);
+
+            System.out.println("----MESSAGES------");
+
+
+            ArrayList<Document> messages = myDicussions.getVectMessages();
+
+            for ( Document messagesInThread : messages ) {
+                System.out.println("MESSAGE : " + messagesInThread.get("message"));
+                System.out.println("DATE : " + messagesInThread.get("date"));
+                System.out.println("--------------------------------------");
+            }
+        }*/
