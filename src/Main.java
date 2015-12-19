@@ -12,8 +12,10 @@ public class Main {
     public static void main ( String args []) throws Exception {
 
         Forum ourForum = new Forum();
-        ourForum.addDiscution("NIGGA", "GET FUCKED");
-        ourForum.addMessage("cest cool", new ObjectId("56758d834c0fba1a9005ad21"));
+
+        ourForum.addDiscution("Alerte", "Le grinch a vole les cadeau de noel");
+
+
 
         ForumMainMenu view = new ForumMainMenu(ourForum);
 

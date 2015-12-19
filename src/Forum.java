@@ -44,6 +44,11 @@ public class Forum {
         collectionDicussions.updateOne( new Document("_id", id), new Document("$push", new Document("messages", getMessageDoc(message)))); // ajoute un item 'message' dans le tableau "messages"
     }
 
+    public void supprimerDiscution(ObjectId id) { //delete par ID
+
+        collectionDicussions.deleteOne(new Document("_id", id));
+    }
+
     public Vector<Discussion> getDicussions() { //cette methode renvoie un vecteur contenant toutes les discussions du forum sous forme d'objet contenant le nom du sujet, l'auteur et tous ses messages
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
@@ -80,5 +85,4 @@ public class Forum {
             }
         });
     }
-
 }

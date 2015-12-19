@@ -1,3 +1,5 @@
+import org.bson.types.ObjectId;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -20,6 +22,7 @@ public class ForumMainMenu extends JFrame {
 
     private Ecouteur ec;
     private JLabel lblNewLabel;
+    private JLabel labelAddDiscussion;
 
     public ForumMainMenu(Forum forum) {
         this.forum = forum;
@@ -31,7 +34,7 @@ public class ForumMainMenu extends JFrame {
         getContentPane().setLayout(null);
         this.setVisible(true);
         mainPanel = new JPanel();
-        mainPanel.setBackground(new Color(127, 140, 141));
+        mainPanel.setBackground(new Color(192, 57, 43));
 
         this.setContentPane(mainPanel);
         mainPanel.setLayout(null);
@@ -51,17 +54,22 @@ public class ForumMainMenu extends JFrame {
         lblNewLabel.setBounds(10, 11, 342, 53);
         mainPanel.add(lblNewLabel);
 
+        labelAddDiscussion = new JLabel("New label");
+        labelAddDiscussion.setBounds(787, 21, 65, 65);
+        labelAddDiscussion.setIcon(new ImageIcon("add.png"));
+        mainPanel.add(labelAddDiscussion);
+
         vectDiscussion = forum.getDicussions();
 
         //Test
         for ( Discussion discussions : vectDiscussion  ) {
-
+            ObjectId _id = discussions.get_id();
             String titre = discussions.getTitre();
             int size = discussions.getVectMessages().size();
 
             String dateDernierMessage = (String)discussions.getVectMessages().get(size - 1).get("date");
 
-            panel.add(new PanelMessage(titre, String.valueOf(size), dateDernierMessage ));
+            panel.add(new PanelMessage(titre, String.valueOf(size), dateDernierMessage, _id ));
         }
 
     }
@@ -72,12 +80,13 @@ public class ForumMainMenu extends JFrame {
         private JLabel labelNbMsg;
         private JLabel lblDerniermessage;
         private JLabel labelSupprimer;
+        private ObjectId idDiscussion;
 
 
-        public PanelMessage(String titrePublication, String nbMsg, String dateDerniermessage) {
+        public PanelMessage(String titrePublication, String nbMsg, String dateDerniermessage, ObjectId idDiscussion) {
+            this.idDiscussion = idDiscussion;
 
             GridLayout myGridLayOut = new GridLayout(1,3);
-
             this.setLayout( myGridLayOut );
 
             this.addMouseListener(ec);
@@ -99,20 +108,47 @@ public class ForumMainMenu extends JFrame {
 
         }
 
+        public ObjectId getID() {
+            return this.idDiscussion;
+        }
+    }
+
+    public void refreshList() {
+        vectDiscussion = forum.getDicussions();
+
+        panel = new JPanel();
+        scrollPane.setViewportView(panel);
+        panel.setLayout(new GridLayout(0, 1, 0, 0));
+
+        //Test
+        for ( Discussion discussions : vectDiscussion  ) {
+            ObjectId _id = discussions.get_id();
+            String titre = discussions.getTitre();
+            int size = discussions.getVectMessages().size();
+
+            String dateDernierMessage = (String)discussions.getVectMessages().get(size - 1).get("date");
+
+            panel.add(new PanelMessage(titre, String.valueOf(size), dateDernierMessage, _id ));
+        }
     }
 
     private class Ecouteur implements MouseListener {
 
         @Override
-        public void mouseClicked(MouseEvent arg0) {
-            // TODO Auto-generated method stub
+        public void mouseClicked(MouseEvent me) {
+            PanelMessage panelMessage = (PanelMessage)me.getComponent();
+
+            forum.supprimerDiscution(panelMessage.getID());
+
+            refreshList();
+
 
         }
 
         @Override
         public void mouseEntered(MouseEvent me) {
 
-            me.getComponent().setBackground(new Color(41, 128, 185));
+            me.getComponent().setBackground(new Color(52, 152, 219));
 
 
         }
@@ -129,18 +165,13 @@ public class ForumMainMenu extends JFrame {
 
             me.getComponent().setBackground(new Color(52,73,94));
 
-
         }
 
         @Override
         public void mouseReleased(MouseEvent me) {
-            me.getComponent().setBackground(new Color(41, 128, 185));
-
+            me.getComponent().setBackground(null);
         }
-
-
     }
-
 }
 //console gui, only for reals
 /*Vector<Discussion> discussions = ourForum.getDicussions();

@@ -34,4 +34,12 @@ public class Discussion {
     public void setVectMessages(ArrayList<Document> vectMessages) {
         this.vectMessages = vectMessages;
     }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 }
