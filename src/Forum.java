@@ -41,16 +41,18 @@ public class Forum {
     MongoDatabase forumDataBase;
     MongoCollection<Document> collectionDicussions;
 
-
     public Forum() throws Exception {
 
-        this.mongoClient = new MongoClient("127.0.0.1", 27017);
+        this.mongoClient = new MongoClient();
 
         this.forumDataBase = mongoClient.getDatabase("forumDataBase");
 
         this.collectionDicussions = forumDataBase.getCollection("collectionMessages");
+    }
 
+    public Document getMessageDoc(String message) throws ParseException {
 
+        return new Document("message", message).append("date", getDate());
     }
 
     public void addDiscution(String nomDuSujet,String message) throws ParseException {
@@ -60,14 +62,10 @@ public class Forum {
         collectionDicussions.insertOne(nouvelleDiscution);
     }
 
-    public Document getMessageDoc(String message) throws ParseException {
 
-        return new Document("message", message).append("date", getDate());
+    public void addMessage(String message, ObjectId id) throws ParseException {
 
-    }
-
-    public void addMessage(String message, int idSujet) throws ParseException {
-
+        collectionDicussions.updateOne( new Document("_id", id), new Document("$push", new Document("messages", getMessageDoc(message))));
     }
 
 
@@ -88,14 +86,6 @@ public class Forum {
 
     }
 
-    public void getAllIds(String collection) {
-
-        FindIterable<Document> iterable = forumDataBase.getCollection(collection).find();
-
-        this.iterateDocumentsInCollection("collectionMessages",iterable);
-
-    }
-
     public void iterateDocumentsInCollection(String collection, FindIterable<Document> iterable) {
 
         iterable.forEach(new Block<Document>() {
@@ -104,7 +94,6 @@ public class Forum {
                 System.out.println(document);
             }
         });
-
     }
 
     public String getDate() throws ParseException {
@@ -121,7 +110,9 @@ public class Forum {
 
         Forum ourForum = new Forum();
 
-        ourForum.addDiscution("Bonjour", "Sors les caliss de poubelles");
+        //ourForum.addDiscution("Bonjour", "Sors les caliss de poubelles");
+
+        ourForum.addMessage("ok ok, capote pas", new ObjectId("56756c084c0fba17803898a3"));
 
         ourForum.printAllDocsInCollection();
 
