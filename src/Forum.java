@@ -54,10 +54,10 @@ public class Forum {
             @Override
             public void apply(final Document document) {
 
-                ObjectId _id = (ObjectId)document.get("_id");
-                String nomSujet = (String)document.get("nomSujet");
+                ObjectId _id = (ObjectId)document.get("_id"); //renvoie le ID du thread
+                String nomSujet = (String)document.get("nomSujet"); //renvoie le nom du thread
 
-                ArrayList<Document> messages = (ArrayList<Document>)document.get("messages");
+                ArrayList<Document> messages = (ArrayList<Document>)document.get("messages"); //renvoie un arraylist des items 'messages'. chacun contenant un message,un auteur et une date de publication
 
                 vectDicussion.add( new Discussion(nomSujet,_id,messages ) );
 
@@ -110,7 +110,7 @@ public class Forum {
         //return aujourdhui
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
         return sdf.format(cal.getTime());
     }
 

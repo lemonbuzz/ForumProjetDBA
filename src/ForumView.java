@@ -19,6 +19,7 @@ public class ForumView extends JFrame {
 
 
     private Ecouteur ec;
+    private JLabel lblNewLabel;
 
     public ForumView(Forum forum) {
         this.forum = forum;
@@ -44,6 +45,12 @@ public class ForumView extends JFrame {
         scrollPane.setViewportView(panel);
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
+        lblNewLabel = new JLabel("Bro Forum");
+        lblNewLabel.setForeground(Color.ORANGE);
+        lblNewLabel.setFont(new Font("Microsoft PhagsPa", Font.BOLD, 57));
+        lblNewLabel.setBounds(10, 11, 342, 53);
+        mainPanel.add(lblNewLabel);
+
         vectDiscussion = forum.getDicussions();
 
         //Test
@@ -58,8 +65,6 @@ public class ForumView extends JFrame {
         }
 
     }
-
-
 
     private class PanelMessage extends JPanel {
 
