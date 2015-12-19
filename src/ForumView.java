@@ -87,9 +87,6 @@ public class ForumView extends JFrame {
 
         }
 
-
-
-
     }
 
     private class Ecouteur implements MouseListener {
@@ -128,7 +125,6 @@ public class ForumView extends JFrame {
             me.getComponent().setBackground(new Color(41, 128, 185));
 
         }
-
 
 
     }

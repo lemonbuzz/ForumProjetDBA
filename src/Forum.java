@@ -22,6 +22,8 @@ import java.text.Format;
 import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Vector;
+
 import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -61,6 +63,35 @@ public class Forum {
 
         collectionDicussions.insertOne(nouvelleDiscution);
     }
+
+    public Vector<Dicussion> getDicussions() {
+
+        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
+        Vector<Dicussion> vectDicussion = new Vector<Dicussion>();
+        Vector<String> vectMessages = new Vector<String>();
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+
+                ObjectId _id = (ObjectId)document.get("_id");
+                String nomSujet = (String)document.get("nomSujet");
+
+                Object object = document.get("messages");
+
+
+
+                System.out.println("--------------------");
+                System.out.println(nomSujet);
+                System.out.println(_id);
+                System.out.println(object);
+
+                //vectDicussion.add( new Dicussion(nomSujet,_id,))
+
+            }});
+
+        return null;
+    }
+
 
 
     public void addMessage(String message, ObjectId id) throws ParseException {
@@ -112,7 +143,9 @@ public class Forum {
 
         //ourForum.addDiscution("Bonjour", "Sors les caliss de poubelles");
 
-        ourForum.addMessage("hahaha vous etes fou", new ObjectId("56756c084c0fba17803898a3"));
+        //ourForum.addMessage("hahaha vous etes fou", new ObjectId("56758d834c0fba1a9005ad21"));
+
+        ourForum.getDicussions();
 
         ourForum.printAllDocsInCollection();
 
