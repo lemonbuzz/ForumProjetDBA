@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.GroupLayout.Alignment;
 
@@ -44,11 +48,7 @@ public class ForumView extends JFrame {
 
         //Test
         for ( int i = 0; i < 50; i++)
-            panel.add ( new PanelMessage() );
-
-
-
-
+            panel.add ( new PanelMessage("Titre thread", "2", "18 nov") );
 
     }
 
@@ -59,30 +59,31 @@ public class ForumView extends JFrame {
         private JLabel labelTitreForum;
         private JLabel labelNbMsg;
         private JLabel lblDerniermessage;
+        private JLabel labelSupprimer;
 
 
-        public PanelMessage() {
+        public PanelMessage(String titrePublication, String nbMsg, String dateDerniermessage) {
 
-            FlowLayout myFlowLayOut = new FlowLayout(FlowLayout.CENTER, 5, 5);
+            GridLayout myGridLayOut = new GridLayout(1,3);
 
-            myFlowLayOut.setVgap(15);
-
-
-            /*this.setBounds(0, 0, 300, 600);*/
-            this.setLayout( myFlowLayOut );
+            this.setLayout( myGridLayOut );
 
             this.addMouseListener(ec);
 
-            labelTitreForum = new JLabel("Titre de la Publication");
+            this.labelTitreForum = new JLabel(titrePublication);
+            this.labelNbMsg = new JLabel(titrePublication);
+
+
+            this.labelSupprimer = new JLabel();
+            this.labelSupprimer.setIcon(new ImageIcon("trash.png"));
+
+            this.lblDerniermessage = new JLabel("Dernier message: " + dateDerniermessage);
+
 
             this.add(labelTitreForum);
-
-            labelNbMsg = new JLabel("Nombre de message");
-            labelNbMsg.setBackground(SystemColor.textHighlight);
             this.add(labelNbMsg);
-
-            lblDerniermessage = new JLabel("Supprimer");
             this.add(lblDerniermessage);
+            this.add(labelSupprimer);
 
         }
 
@@ -115,14 +116,16 @@ public class ForumView extends JFrame {
         }
 
         @Override
-        public void mousePressed(MouseEvent arg0) {
-            // TODO Auto-generated method stub
+        public void mousePressed(MouseEvent me) {
+
+            me.getComponent().setBackground(new Color(52,73,94));
+
 
         }
 
         @Override
-        public void mouseReleased(MouseEvent arg0) {
-            // TODO Auto-generated method stub
+        public void mouseReleased(MouseEvent me) {
+            me.getComponent().setBackground(new Color(41, 128, 185));
 
         }
 

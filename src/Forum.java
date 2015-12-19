@@ -112,7 +112,7 @@ public class Forum {
 
         //ourForum.addDiscution("Bonjour", "Sors les caliss de poubelles");
 
-        ourForum.addMessage("ok ok, capote pas", new ObjectId("56756c084c0fba17803898a3"));
+        ourForum.addMessage("hahaha vous etes fou", new ObjectId("56756c084c0fba17803898a3"));
 
         ourForum.printAllDocsInCollection();
 
