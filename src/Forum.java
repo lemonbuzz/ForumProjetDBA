@@ -1,6 +1,3 @@
-/**
- * Created by Alexandre on 2015-11-20.
- */
 
 import com.mongodb.MongoClient;
 
@@ -17,35 +14,37 @@ import org.bson.types.ObjectId;
 
 import static java.util.Arrays.asList;
 
-
 public class Forum {
 
     MongoClient mongoClient;
     MongoDatabase forumDataBase;
     MongoCollection<Document> collectionDicussions;
 
-    public Forum() throws Exception {
+    public Forum() throws Exception { //instancie un forum - un client mongo, une db et une collection contenant les dicussions
 
         this.mongoClient = new MongoClient();
-
         this.forumDataBase = mongoClient.getDatabase("forumDataBase");
-
         this.collectionDicussions = forumDataBase.getCollection("collectionMessages");
     }
-
+    //*****METHOD TO MODIFY*****TO ADD: AUTHOR OF MESSAGE//
     public Document getMessageDoc(String message) throws ParseException {
 
-        return new Document("message", message).append("date", getDate());
+        return new Document("message", message).append("date", getDate()); //renvoie un doc bson qui représente UN message **TO ADD: AUTHOR OF MESSAGE**
     }
+    ///////////////////////////////
 
-    public void addDiscution(String nomDuSujet,String message) throws ParseException {
+    public void addDiscution(String nomDuSujet,String message) throws ParseException { //Ajoute une discussion a la collection discussion
 
-        Document nouvelleDiscution = new Document("nomSujet", message).append("messages", asList(getMessageDoc(message)));
-
+        Document nouvelleDiscution = new Document("nomSujet", nomDuSujet).append("messages", asList(getMessageDoc(message))); // insert une discussion et y ajoute un item 'message' dans le tableau "messages"
         collectionDicussions.insertOne(nouvelleDiscution);
     }
 
-    public Vector<Discussion> getDicussions() {
+    public void addMessage(String message, ObjectId id) throws ParseException {
+
+        collectionDicussions.updateOne( new Document("_id", id), new Document("$push", new Document("messages", getMessageDoc(message)))); // ajoute un item 'message' dans le tableau "messages"
+    }
+
+    public Vector<Discussion> getDicussions() { //cette methode renvoie un vecteur contenant toutes les discussions du forum sous forme d'objet contenant le nom du sujet, l'auteur et tous ses messages
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
         Vector<Discussion> vectDicussion = new Vector<Discussion>();
@@ -65,20 +64,14 @@ public class Forum {
         return vectDicussion;
     }
 
-    public void addMessage(String message, ObjectId id) throws ParseException {
+    public String getDate() throws ParseException { //renvoie la date en francais avec le mois abrégé
 
-        collectionDicussions.updateOne( new Document("_id", id), new Document("$push", new Document("messages", getMessageDoc(message))));
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
+        return sdf.format(cal.getTime());
     }
 
-    public void printAllDocsInCollection() {
-
-        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
-
-        this.iterateDocumentsInCollection("collectionMessages",iterable);
-
-    }
-
-    public void iterateDocumentsInCollection(String collection, FindIterable<Document> iterable) {
+    public void iterateDocumentsInCollection(String collection, FindIterable<Document> iterable) { //itere les objets Documents avec un objet iterable pour print tous les documents
 
         iterable.forEach(new Block<Document>() {
             @Override
@@ -88,12 +81,4 @@ public class Forum {
         });
     }
 
-    public String getDate() throws ParseException {
-
-        Date aujourdhui = new Date();
-
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
-        return sdf.format(cal.getTime());
-    }
 }
