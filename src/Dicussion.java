@@ -10,7 +10,6 @@ import java.util.Vector;
 public class Dicussion {
 
     String titre;
-    String messageInitial;
     ObjectId _id;
     ArrayList<Document> vectMessages;
 
@@ -28,11 +27,11 @@ public class Dicussion {
         this.titre = titre;
     }
 
-    public String getMessageInitial() {
-        return messageInitial;
+    public ArrayList<Document> getVectMessages() {
+        return vectMessages;
     }
 
-    public void setMessageInitial(String messageInitial) {
-        this.messageInitial = messageInitial;
+    public void setVectMessages(ArrayList<Document> vectMessages) {
+        this.vectMessages = vectMessages;
     }
 }
