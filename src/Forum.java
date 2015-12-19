@@ -6,7 +6,6 @@ import com.mongodb.MongoClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.*;
 
 import com.mongodb.Block;
@@ -103,11 +102,6 @@ public class Forum {
     public String getDate() throws ParseException {
 
         Date aujourdhui = new Date();
-        //DateFormat formatDeDate = new SimpleDateFormat("d MMM", Locale.CANADA_FRENCH);
-
-        //return formatDeDate.format(aujourdhui);
-
-        //return aujourdhui
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
@@ -149,7 +143,7 @@ public class Forum {
             }
         }
 
-        new ForumView(ourForum);
+        new ForumMainMenu(ourForum);
 
     }
 }

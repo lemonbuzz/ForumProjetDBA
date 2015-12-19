@@ -7,7 +7,7 @@ public class Main {
 
         Forum ourForum = new Forum();
 
-        ForumView view = new ForumView(ourForum);
+        ForumMainMenu view = new ForumMainMenu(ourForum);
 
 
     }
