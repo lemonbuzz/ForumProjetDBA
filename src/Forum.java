@@ -108,42 +108,5 @@ public class Forum {
         return sdf.format(cal.getTime());
     }
 
-    /*FONCTION TEMPORAIRE MAIN*/
 
-    public static void main ( String [] args) throws Exception {
-
-        Forum ourForum = new Forum();
-
-        //ourForum.addDiscution("Le forum fonctionne", "Caliss de sain ciboire");
-
-        ourForum.addMessage("cest cool", new ObjectId("56758d834c0fba1a9005ad21"));
-
-        Vector<Discussion> discussions = ourForum.getDicussions();
-
-
-        System.out.println("BIENVENU AU FORUM DES BROS!!!!!!!!!!!");
-        System.out.println("--------------------------------------");
-
-
-        for ( Discussion myDicussions : discussions) {
-
-            String titre = myDicussions.getTitre();
-
-            System.out.println("-->DISCUSSION: " + titre);
-
-            System.out.println("----MESSAGES------");
-
-
-            ArrayList<Document> messages = myDicussions.getVectMessages();
-
-            for ( Document messagesInThread : messages ) {
-                System.out.println("MESSAGE : " + messagesInThread.get("message"));
-                System.out.println("DATE : " + messagesInThread.get("date"));
-                System.out.println("--------------------------------------");
-            }
-        }
-
-        new ForumMainMenu(ourForum);
-
-    }
 }
