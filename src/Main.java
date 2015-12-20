@@ -15,7 +15,7 @@ public class Main {
 
         ourForum.addDiscution("Alerte", "Le grinch a vole les cadeau de noel");
 
-
+        //ourForum.addMessage("nooon :(", new ObjectId("5675d1f64c0fba24a0f95224"));
 
         ForumMainMenu view = new ForumMainMenu(ourForum);
 

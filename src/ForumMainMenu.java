@@ -1,3 +1,4 @@
+import javafx.scene.layout.Pane;
 import org.bson.types.ObjectId;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class ForumMainMenu extends JFrame {
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
         lblNewLabel = new JLabel("Bro Forum");
-        lblNewLabel.setForeground(Color.ORANGE);
+        lblNewLabel.setForeground(Color.BLUE);
         lblNewLabel.setFont(new Font("Microsoft PhagsPa", Font.BOLD, 57));
         lblNewLabel.setBounds(10, 11, 342, 53);
         mainPanel.add(lblNewLabel);
@@ -82,9 +83,12 @@ public class ForumMainMenu extends JFrame {
         private JLabel labelSupprimer;
         private ObjectId idDiscussion;
 
+        String nbMsg;
+
 
         public PanelMessage(String titrePublication, String nbMsg, String dateDerniermessage, ObjectId idDiscussion) {
             this.idDiscussion = idDiscussion;
+            this.nbMsg = nbMsg;
 
             GridLayout myGridLayOut = new GridLayout(1,3);
             this.setLayout( myGridLayOut );
@@ -92,11 +96,12 @@ public class ForumMainMenu extends JFrame {
             this.addMouseListener(ec);
 
             this.labelTitreForum = new JLabel(titrePublication);
-            this.labelNbMsg = new JLabel(titrePublication);
+            this.labelNbMsg = new JLabel(nbMsg);
 
 
             this.labelSupprimer = new JLabel();
             this.labelSupprimer.setIcon(new ImageIcon("trash.png"));
+            this.labelSupprimer.addMouseListener(ec);
 
             this.lblDerniermessage = new JLabel("Dernier message: " + dateDerniermessage);
 
@@ -106,6 +111,14 @@ public class ForumMainMenu extends JFrame {
             this.add(lblDerniermessage);
             this.add(labelSupprimer);
 
+        }
+
+        public JLabel getLabelSupprimer() {
+            return labelSupprimer;
+        }
+
+        public void setLabelSupprimer(JLabel labelSupprimer) {
+            this.labelSupprimer = labelSupprimer;
         }
 
         public ObjectId getID() {
@@ -136,12 +149,8 @@ public class ForumMainMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent me) {
-            PanelMessage panelMessage = (PanelMessage)me.getComponent();
 
-            forum.supprimerDiscution(panelMessage.getID());
-
-            refreshList();
-
+            me.getComponent().setBackground(null);
 
         }
 
@@ -149,7 +158,6 @@ public class ForumMainMenu extends JFrame {
         public void mouseEntered(MouseEvent me) {
 
             me.getComponent().setBackground(new Color(52, 152, 219));
-
 
         }
 
