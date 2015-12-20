@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
+import java.awt.CardLayout;
 
 public class FrameForum extends JFrame {
 
@@ -34,6 +35,18 @@ public class FrameForum extends JFrame {
 	private JTextField textField;
 	
 	private Ecouteur ec;
+	private JLabel lblDiscussion;
+	private JLabel lblThread;
+	private JLabel lblBackbtn;
+	private JPanel panelPageMsg;
+	private JPanel panelCardLayout;
+	private JPanel panelPageThread;
+	private JPanel panelMainMenu;
+	private JLabel lblForumname;
+	private JLabel lblAjouter;
+	private JLabel lblAddthreadicon;
+	private JScrollPane scrollPane;
+	private JPanel panelThread;
 
 	/**
 	 * Launch the application.
@@ -63,21 +76,35 @@ public class FrameForum extends JFrame {
 		setSize(960, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("CVM - FORUM");
+		setTitle("THE BROS. FORUM");
+		this.setIconImage((new ImageIcon("icons/forumIcon.png")).getImage());
 		getContentPane().setLayout(null);
 		
 		ec = new Ecouteur();
 		
+		panelCardLayout = new JPanel();
+		panelCardLayout.setBounds(0, 0, this.getWidth()-16, 800);
+		getContentPane().add(panelCardLayout);
+		panelCardLayout.setLayout(new CardLayout(0, 0));
+		
+		
+		
+		//Page des messages pour une discussion
+		panelPageMsg = new JPanel();
+		panelPageMsg.setBounds(0, 0, this.getWidth()-16, 800);
+		panelCardLayout.add(panelPageMsg);
+		panelPageMsg.setLayout(null);
+		
 		panelMenu = new JPanel();
-		panelMenu.setBackground(Color.DARK_GRAY);
 		panelMenu.setBounds(0, 0, this.getWidth()-16, 100);
-		getContentPane().add(panelMenu);
+		panelMenu.setBackground(Color.DARK_GRAY);
+		panelPageMsg.add(panelMenu);
 		panelMenu.setLayout(null);
 		
 		lblForum = new JLabel("The Bros. Forum");
-		lblForum.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblForum.setForeground(Color.CYAN);
-		lblForum.setBounds(22, 11, 203, 27);
+		lblForum.setFont(new Font("Nirmala UI", Font.BOLD, 24));
+		lblForum.setForeground(new Color(176, 224, 230));
+		lblForum.setBounds(22, 11, 241, 27);
 		panelMenu.add(lblForum);
 		
 		lblLoginicon = new JLabel();
@@ -90,22 +117,40 @@ public class FrameForum extends JFrame {
 		panelMenu.add(textField);
 		textField.setColumns(10);
 		
+		lblDiscussion = new JLabel("Discussion :");
+		lblDiscussion.setForeground(new Color(176, 224, 230));
+		lblDiscussion.setFont(new Font("Segoe UI Light", Font.BOLD, 25));
+		lblDiscussion.setBounds(84, 55, 140, 27);
+		panelMenu.add(lblDiscussion);
+		
+		lblThread = new JLabel("thread");
+		lblThread.setForeground(new Color(147, 112, 219));
+		lblThread.setFont(new Font("Segoe UI Light", Font.BOLD, 25));
+		lblThread.setBounds(234, 55, 460, 27);
+		panelMenu.add(lblThread);
+		
+		lblBackbtn = new JLabel();
+		lblBackbtn.setIcon(new ImageIcon("icons/backToThreadIcon.png"));
+		lblBackbtn.setBounds(22, 49, 40, 40);
+		panelMenu.add(lblBackbtn);
+		
 		panelMessage = new JPanel();
 		panelMessage.setBounds(0, 0, this.getWidth()-16, 100);
 		panelMessage.setLayout(new BoxLayout(panelMessage, BoxLayout.Y_AXIS));
 		
 		scrollPaneMessage = new JScrollPane(panelMessage);
-		scrollPaneMessage.setBounds(0, 100, this.getWidth()-16, 500);
-		
-		getContentPane().add(scrollPaneMessage);
+		scrollPaneMessage.setBounds(0, 100, 944, 500);
+		scrollPaneMessage.getVerticalScrollBar().setUnitIncrement(16);
+		panelPageMsg.add(scrollPaneMessage);
 		
 		panelReply = new JPanel();
+		panelReply.setBounds(0, 600, 944, 161);
 		panelReply.setBackground(Color.DARK_GRAY);
-		panelReply.setBounds(0, 600, this.getWidth()-16, 165);
-		getContentPane().add(panelReply);
+		panelPageMsg.add(panelReply);
 		panelReply.setLayout(null);
 		
 		txtpnTextReply = new JTextPane();
+		txtpnTextReply.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtpnTextReply.setBounds(10, 10, 780, 140);
 		
 		scrollPaneRepty = new JScrollPane(txtpnTextReply);
@@ -116,9 +161,54 @@ public class FrameForum extends JFrame {
 		lblSendIcon.setIcon(new ImageIcon("icons/sendIcon.png"));
 		lblSendIcon.setBounds(835, 50, 60, 60);
 		panelReply.add(lblSendIcon);
+		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde omnis iste natus error sust explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure hiit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter cbecause it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rand pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any r ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rtotam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 11));
+		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde t voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of  omnis iste natus error sequi neel scrolling. Is there any way to adjust the speed of the scrolling, though? It is, in my opinion, ludicrously slow. No matter what size I make the window, theesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 12));
+		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rand pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any r ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rtotam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 13));
 		
-		for(int i = 0; i < 30; i++){
-			panelMessage.add(new MessagePanel("Hey sa va", "drago", "2015-12-19", ec));
+		panelPageThread = new JPanel();
+		panelCardLayout.add(panelPageThread);
+		panelPageThread.setLayout(null);
+		
+		panelMainMenu = new JPanel();
+		panelMainMenu.setBounds(0, 0, 944, 100);
+		panelMainMenu.setBackground(Color.DARK_GRAY);
+		panelPageThread.add(panelMainMenu);
+		panelMainMenu.setLayout(null);
+		
+		lblForumname = new JLabel("The Bros. Forum");
+		lblForumname.setForeground(new Color(176, 244, 230));
+		lblForumname.setFont(new Font("Nirmala UI", Font.BOLD, 24));
+		lblForumname.setBounds(10, 11, 253, 57);
+		panelMainMenu.add(lblForumname);
+		
+		lblAjouter = new JLabel("Ajouter");
+		lblAjouter.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		lblAjouter.setForeground(new Color(255, 255, 255));
+		lblAjouter.setBounds(642, 70, 46, 14);
+		panelMainMenu.add(lblAjouter);
+		
+		lblAddthreadicon = new JLabel("add");
+		lblAddthreadicon.setIcon(new ImageIcon("icons/addThreadIcon.png"));
+		lblAddthreadicon.setBounds(636, 15, 50, 50);
+		panelMainMenu.add(lblAddthreadicon);
+		
+		panelThread = new JPanel();
+		panelThread.setBounds(0, 0, 944, 700);
+		panelThread.setLayout(new BoxLayout(panelThread, BoxLayout.Y_AXIS));
+		
+		scrollPane = new JScrollPane(panelThread);
+		scrollPane.setBounds(0, 100, 944, 661);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		panelPageThread.add(scrollPane);
+		
+		for(int i = 0; i < 10; i++){
+			panelThread.add(new DiscussionPanel("Les Poubelles", 30, "2015-12-20", i+1, ec));
 		}
+		
+		for(int i = 0; i < 10; i++){
+			panelMessage.add(new MessagePanel("<html>Hey sa va aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab</html>", "drago", "2015-12-19", ec, i+1));
+		}
+		
+		
 	}
 }
