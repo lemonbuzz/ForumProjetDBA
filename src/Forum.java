@@ -52,7 +52,7 @@ public class Forum {
     public Vector<Discussion> getDicussions() { //cette methode renvoie un vecteur contenant toutes les discussions du forum sous forme d'objet contenant le nom du sujet, l'auteur et tous ses messages
 
         FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
-        Vector<Discussion> vectDicussion = new Vector<Discussion>();
+        final Vector<Discussion> vectDicussion = new Vector<Discussion>();
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
