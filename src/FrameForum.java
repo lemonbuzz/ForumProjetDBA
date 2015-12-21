@@ -34,7 +34,7 @@ public class FrameForum extends JFrame {
 	private JLabel lblLoginicon;
 	private JTextField textField;
 	
-	private Ecouteur ec;
+	//private Ecouteur ec;
 	private JLabel lblDiscussion;
 	private JLabel lblThread;
 	private JLabel lblBackbtn;
@@ -61,6 +61,7 @@ public class FrameForum extends JFrame {
 			public void run() {
 				try {
 					FrameForum frame = new FrameForum();
+					Ecouteur ec = new Ecouteur(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,8 +80,6 @@ public class FrameForum extends JFrame {
 		setTitle("THE BROS. FORUM");
 		this.setIconImage((new ImageIcon("icons/forumIcon.png")).getImage());
 		getContentPane().setLayout(null);
-		
-		ec = new Ecouteur();
 		
 		panelCardLayout = new JPanel();
 		panelCardLayout.setBounds(0, 0, this.getWidth()-16, 800);
@@ -165,7 +164,7 @@ public class FrameForum extends JFrame {
 		lblThread.setBounds(234, 55, 460, 27);
 		panelMenu.add(lblThread);
 		
-		lblBackbtn = new JLabel();
+		lblBackbtn = new JLabel("backToThreads");
 		lblBackbtn.setIcon(new ImageIcon("icons/backToThreadIcon.png"));
 		lblBackbtn.setBounds(22, 49, 40, 40);
 		panelMenu.add(lblBackbtn);
@@ -197,22 +196,29 @@ public class FrameForum extends JFrame {
 		lblSendIcon.setIcon(new ImageIcon("icons/sendIcon.png"));
 		lblSendIcon.setBounds(835, 50, 60, 60);
 		panelReply.add(lblSendIcon);
-		
-		
-		
+	}
+	
+	public void nextPanel(){
+		CardLayout layout = (CardLayout)panelCardLayout.getLayout();
+		layout.next(panelCardLayout);
+	}
+	
+	public void addBtnBackToThread(Ecouteur ec){
+		lblBackbtn.addMouseListener(ec);
+	}
+	
+	public void addListenerToPanelThread(Ecouteur ec){
 		for(int i = 0; i < 10; i++){
 			panelThread.add(new DiscussionPanel("Les Poubelles", 30, "2015-12-20", i+1, ec));
 		}
-		
+	}
+	
+	public void addListenerToPanelMessage(Ecouteur ec){
 		for(int i = 0; i < 10; i++){
 			panelMessage.add(new MessagePanel("<html>Hey sa va aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab</html>", "drago", "2015-12-19", ec, i+1));
 		}
 		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde omnis iste natus error sust explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure hiit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter cbecause it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rand pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any r ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rtotam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 11));
 		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde t voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of  omnis iste natus error sequi neel scrolling. Is there any way to adjust the speed of the scrolling, though? It is, in my opinion, ludicrously slow. No matter what size I make the window, theesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 12));
 		panelMessage.add(new MessagePanel("<html>Sed ut perspiciati unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rand pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any r ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any rtotam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est?</html>", "drago", "2015-12-19", ec, 13));
-	}
-
-	public JPanel getPanelCardLayout() {
-		return panelCardLayout;
 	}
 }

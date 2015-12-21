@@ -15,6 +15,13 @@ public class Ecouteur implements MouseListener{
 		private Color rebeccapurple = new Color(41, 128, 185);
 		private Color wistful = new Color(102, 51, 153);
 		private Color alizarin = new Color(231, 76, 60);
+		
+		public Ecouteur(FrameForum frameForum){
+			this.frameForum = frameForum;
+			frameForum.addListenerToPanelMessage(this);
+			frameForum.addListenerToPanelThread(this);
+			frameForum.addBtnBackToThread(this);
+		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -25,10 +32,13 @@ public class Ecouteur implements MouseListener{
 				else if(lblBtn.getText().equals("deleteThread")){
 					System.out.println("Im gonna delete this thread");
 				}
-				else if(lblBtn.equals("send"))
+				else if(lblBtn.getText().equals("send"))
 					System.out.println("Im gonna send message");
-				else if(lblBtn.equals("login"))
+				else if(lblBtn.getText().equals("login"))
 					System.out.println("Im gonna login message");
+				else if(lblBtn.getText().equals("backToThreads")){
+					this.frameForum.nextPanel();
+				}
 				
 			}
 			else if(e.getSource() instanceof MessagePanel){
@@ -44,8 +54,7 @@ public class Ecouteur implements MouseListener{
 			}
 			else if(e.getSource() instanceof DiscussionPanel){
 				System.out.println("ok on DiscussionPanel");
-				//System.out.println(frameForum.getPanelCardLayout());
-				//((CardLayout) frameForum.getPanelCardLayout().getLayout()).next(frameForum.getPanelCardLayout());
+				this.frameForum.nextPanel();
 			}
 		}
 
@@ -77,17 +86,17 @@ public class Ecouteur implements MouseListener{
 					}
 				}catch (ClassCastException cce) {
 					((DiscussionPanel) e.getComponent()).changeForeGroundColor(Color.WHITE);
-					//TODO if wasPanelClicked
 				}
 			}
-			
-			if(e.getSource() instanceof JLabel){
-				e.getComponent().getParent().setBackground(alizarin);
-				if(e.getComponent().getParent() instanceof MessagePanel){
-					((MessagePanel) e.getComponent().getParent()).changeForeGroundColor(Color.WHITE);
-				}
-				else if(e.getComponent().getParent() instanceof DiscussionPanel){
-					((DiscussionPanel) e.getComponent().getParent()).changeForeGroundColor(Color.WHITE);
+			else if(e.getSource() instanceof JLabel){
+				if(((JLabel)e.getSource()).getText().equals("deleteMsg") || ((JLabel)e.getSource()).getText().equals("deleteThread")){
+					e.getComponent().getParent().setBackground(alizarin);
+					if(e.getComponent().getParent() instanceof MessagePanel){
+						((MessagePanel) e.getComponent().getParent()).changeForeGroundColor(Color.WHITE);
+					}
+					else if(e.getComponent().getParent() instanceof DiscussionPanel){
+						((DiscussionPanel) e.getComponent().getParent()).changeForeGroundColor(Color.WHITE);
+					}
 				}
 			}
 		}
@@ -104,17 +113,17 @@ public class Ecouteur implements MouseListener{
 					}
 				}catch (ClassCastException cce) {
 					((DiscussionPanel) e.getComponent()).changeForeGroundColor(Color.BLACK);
-					//TODO if wasPanelClicked
 				}
-				
 			}
-			if(e.getSource() instanceof JLabel){
-				e.getComponent().getParent().setBackground(Color.WHITE);
-				if(e.getComponent().getParent() instanceof MessagePanel){
-					((MessagePanel) e.getComponent().getParent()).changeForeGroundColor(Color.BLACK);
-				}
-				else if(e.getComponent().getParent() instanceof DiscussionPanel){
-					((DiscussionPanel) e.getComponent().getParent()).changeForeGroundColor(Color.BLACK);
+			else if(e.getSource() instanceof JLabel){
+				if(((JLabel)e.getSource()).getText().equals("deleteMsg") || ((JLabel)e.getSource()).getText().equals("deleteThread")){
+					e.getComponent().getParent().setBackground(Color.WHITE);
+					if(e.getComponent().getParent() instanceof MessagePanel){
+						((MessagePanel) e.getComponent().getParent()).changeForeGroundColor(Color.BLACK);
+					}
+					else if(e.getComponent().getParent() instanceof DiscussionPanel){
+						((DiscussionPanel) e.getComponent().getParent()).changeForeGroundColor(Color.BLACK);
+					}
 				}
 			}
 		}
