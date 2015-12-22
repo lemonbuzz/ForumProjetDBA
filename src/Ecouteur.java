@@ -2,6 +2,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
 
 import javax.swing.*;
 
@@ -22,6 +23,7 @@ public class Ecouteur implements MouseListener{
 			this.forum = forum;
 			frameForum.addListenerToPanelMessage(this);
 			frameForum.addAddLabelListener(this);
+			frameForum.addDialogListeners(this);
 
 			frameForum.addBtnBackToThread(this);
 			refreshListeThreads();
@@ -39,8 +41,8 @@ public class Ecouteur implements MouseListener{
 					forum.supprimerDiscution(discussion.get_id());
 					refreshListeThreads();
 				}
-				else if(lblBtn.getText().equals("send"))
-					System.out.println("Im gonna send message");
+				else if(lblBtn.getText().equals("send")) {
+				}
 				else if(lblBtn.getText().equals("login"))
 					System.out.println("Im gonna login message");
 				else if(lblBtn.getText().equals("backToThreads")){
@@ -48,8 +50,21 @@ public class Ecouteur implements MouseListener{
 				}
 				else if (lblBtn.getText().equals("add")) {
 					System.out.println("IM GONNA ADD A THREAD");
-					frameForum.newDicussionFromDialog();
+					frameForum.startDialog();
 				}
+				else if (lblBtn.getText().equals("sendThread")) {
+					System.out.println("YOOO");
+					if(frameForum.isThreadCreated()) {
+						try {
+							forum.addDiscution(frameForum.getCreatedDicussion().getTitre(), frameForum.getCreatedDicussion().getUnMessage());
+							refreshListeThreads();
+							frameForum.getDialog().clearChampsTextes();
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+
 
 			}
 			else if(e.getSource() instanceof MessagePanel){

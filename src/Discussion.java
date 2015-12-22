@@ -12,11 +12,17 @@ public class Discussion {
     String titre;
     ObjectId _id;
     ArrayList<Document> vectMessages;
+    String unMessage;
 
     public Discussion(String titre, ObjectId _id, ArrayList<Document> vectMessages) {
         this.titre = titre;
         this._id = _id;
         this.vectMessages = vectMessages;
+    }
+
+    public Discussion(String titre, String unMessage) {
+        this.titre = titre;
+        this.unMessage = unMessage;
     }
 
     public int getNbMessages() {
@@ -50,5 +56,13 @@ public class Discussion {
 
     public void set_id(ObjectId _id) {
         this._id = _id;
+    }
+
+    public String getUnMessage() {
+        return unMessage;
+    }
+
+    public void setUnMessage(String unMessage) {
+        this.unMessage = unMessage;
     }
 }

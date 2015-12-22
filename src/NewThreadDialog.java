@@ -37,7 +37,7 @@ public class NewThreadDialog extends JDialog {
         getContentPane().setBackground(Color.DARK_GRAY);
         getContentPane().setLayout(null);
 
-        lblNewLabel = new JLabel("send");
+        lblNewLabel = new JLabel("sendThread");
         lblNewLabel.setIcon(new ImageIcon("icons/sendIcon.png"));
         lblNewLabel.setBounds(372, 169, 60, 60);
         getContentPane().add(lblNewLabel);
@@ -130,6 +130,13 @@ public class NewThreadDialog extends JDialog {
         });
     }
 
+    public void clearChampsTextes() {
+        textField.setText("");
+        textArea.setText("");
+
+
+    }
+
     public boolean isUserSentThread() {
         return userSentThread;
     }
@@ -137,4 +144,54 @@ public class NewThreadDialog extends JDialog {
     public void setUserSentThread(boolean userSentThread) {
         this.userSentThread = userSentThread;
     }
+
+    public JTextField getTextField() {
+        return textField;
+    }
+
+    public void setTextField(JTextField textField) {
+        this.textField = textField;
+    }
+
+    public JLabel getLblTitreDeLa() {
+        return lblTitreDeLa;
+    }
+
+    public void setLblTitreDeLa(JLabel lblTitreDeLa) {
+        this.lblTitreDeLa = lblTitreDeLa;
+    }
+
+    public JLabel getLblMessage() {
+        return lblMessage;
+    }
+
+    public void setLblMessage(JLabel lblMessage) {
+        this.lblMessage = lblMessage;
+    }
+
+    public JLabel getLblNewLabel() {
+        return lblNewLabel;
+    }
+
+    public void setLblNewLabel(JLabel lblNewLabel) {
+        this.lblNewLabel = lblNewLabel;
+    }
+
+    public JLabel getLblNewLabel_1() {
+        return lblNewLabel_1;
+    }
+
+    public void setLblNewLabel_1(JLabel lblNewLabel_1) {
+        this.lblNewLabel_1 = lblNewLabel_1;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(JTextArea textArea) {
+        this.textArea = textArea;
+    }
+
+
 }
