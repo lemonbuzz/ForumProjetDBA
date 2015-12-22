@@ -1,3 +1,5 @@
+import org.bson.types.ObjectId;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -48,31 +50,6 @@ public class FrameForum extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel panelThread;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameForum frame = new FrameForum();
-					Ecouteur ec = new Ecouteur(frame);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public FrameForum() {
 		setSize(960, 800);
 		setLocationRelativeTo(null);
@@ -80,6 +57,7 @@ public class FrameForum extends JFrame {
 		setTitle("THE BROS. FORUM");
 		this.setIconImage((new ImageIcon("icons/forumIcon.png")).getImage());
 		getContentPane().setLayout(null);
+
 		
 		panelCardLayout = new JPanel();
 		panelCardLayout.setBounds(0, 0, this.getWidth()-16, 800);
@@ -121,9 +99,7 @@ public class FrameForum extends JFrame {
 		scrollPane.setBounds(0, 100, 944, 661);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		panelPageThread.add(scrollPane);
-		
-		
-		
+
 		//Page des messages pour une discussion
 		panelPageMsg = new JPanel();
 		panelPageMsg.setBounds(0, 0, this.getWidth()-16, 800);
@@ -197,7 +173,30 @@ public class FrameForum extends JFrame {
 		lblSendIcon.setBounds(835, 50, 60, 60);
 		panelReply.add(lblSendIcon);
 	}
-	
+
+	public JPanel getPanelThread() {
+		return panelThread;
+	}
+
+	public boolean newDicussionFromDialog() {
+
+		NewThreadDialog dialog = new NewThreadDialog(this);
+		dialog.setVisible(true);
+
+		if (dialog.isUserSentThread() )
+			return true;
+		else
+			return false;
+
+	}
+
+	public void setPanelThread(JPanel panelThread) {
+		panelThread.setBounds(0, 0, 944, 700);
+		panelThread.setLayout(new BoxLayout(panelThread, BoxLayout.Y_AXIS));
+		scrollPane.setViewportView(panelThread);
+		this.panelThread = panelThread;
+	}
+
 	public void nextPanel(){
 		CardLayout layout = (CardLayout)panelCardLayout.getLayout();
 		layout.next(panelCardLayout);
@@ -206,12 +205,12 @@ public class FrameForum extends JFrame {
 	public void addBtnBackToThread(Ecouteur ec){
 		lblBackbtn.addMouseListener(ec);
 	}
-	
-	public void addListenerToPanelThread(Ecouteur ec){
-		for(int i = 0; i < 10; i++){
-			panelThread.add(new DiscussionPanel("Les Poubelles", 30, "2015-12-20", i+1, ec));
-		}
+
+	public void addAddLabelListener(Ecouteur ec) {
+
+		lblAddthreadicon.addMouseListener(ec);
 	}
+
 	
 	public void addListenerToPanelMessage(Ecouteur ec){
 		for(int i = 0; i < 10; i++){

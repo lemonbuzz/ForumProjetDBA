@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class Ecouteur implements MouseListener{
 	
@@ -11,16 +11,20 @@ public class Ecouteur implements MouseListener{
 		private MessagePanel lastSelectedmsgPanel;
 		private DiscussionPanel lastSelectedThreadPanel;
 		private FrameForum frameForum;
+		private Forum forum;
 		
 		private Color rebeccapurple = new Color(41, 128, 185);
 		private Color wistful = new Color(102, 51, 153);
 		private Color alizarin = new Color(231, 76, 60);
 		
-		public Ecouteur(FrameForum frameForum){
+		public Ecouteur(FrameForum frameForum, Forum forum){
 			this.frameForum = frameForum;
+			this.forum = forum;
 			frameForum.addListenerToPanelMessage(this);
-			frameForum.addListenerToPanelThread(this);
+			frameForum.addAddLabelListener(this);
+
 			frameForum.addBtnBackToThread(this);
+			refreshListeThreads();
 		}
 
 		@Override
@@ -30,7 +34,10 @@ public class Ecouteur implements MouseListener{
 				if(lblBtn.getText().equals("deleteMsg"))
 					System.out.println("Im gonna delete this message");
 				else if(lblBtn.getText().equals("deleteThread")){
-					System.out.println("Im gonna delete this thread");
+					System.out.println("YO");
+					DiscussionPanel discussion = (DiscussionPanel)lblBtn.getParent();
+					forum.supprimerDiscution(discussion.get_id());
+					refreshListeThreads();
 				}
 				else if(lblBtn.getText().equals("send"))
 					System.out.println("Im gonna send message");
@@ -39,7 +46,11 @@ public class Ecouteur implements MouseListener{
 				else if(lblBtn.getText().equals("backToThreads")){
 					this.frameForum.nextPanel();
 				}
-				
+				else if (lblBtn.getText().equals("add")) {
+					System.out.println("IM GONNA ADD A THREAD");
+					frameForum.newDicussionFromDialog();
+				}
+
 			}
 			else if(e.getSource() instanceof MessagePanel){
 				if(wasPanelClicked){
@@ -58,11 +69,22 @@ public class Ecouteur implements MouseListener{
 			}
 		}
 
+	public void refreshListeThreads() {
+
+		frameForum.setPanelThread(new JPanel());
+
+		for( Discussion discussion : forum.getDicussions() ) {
+
+			frameForum.getPanelThread().add(new DiscussionPanel(discussion.getTitre(), discussion.getNbMessages(), discussion.getDateLastMessage(), discussion.get_id(), this));
+		}
+	}
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
+
 
 		@Override
 		public void mouseReleased(MouseEvent e) {

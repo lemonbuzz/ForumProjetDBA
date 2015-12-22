@@ -19,6 +19,15 @@ public class Discussion {
         this.vectMessages = vectMessages;
     }
 
+    public int getNbMessages() {
+        return vectMessages.size();
+    }
+
+    public String getDateLastMessage() {
+        int index = vectMessages.size();
+        return (String)vectMessages.get(index-1).get("date");
+    }
+
     public String getTitre() {
         return titre;
     }

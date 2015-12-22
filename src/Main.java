@@ -11,13 +11,14 @@ public class Main {
 
     public static void main ( String args []) throws Exception {
 
-        Forum ourForum = new Forum();
+        Forum forumModel = new Forum();
 
-        ourForum.addDiscution("Alerte", "Le grinch a vole les cadeau de noel");
+        forumModel.addDiscution("YOOOO", "CAA PUE");
 
-        //ourForum.addMessage("nooon :(", new ObjectId("5675d1f64c0fba24a0f95224"));
 
-        ForumMainMenu view = new ForumMainMenu(ourForum);
 
+        FrameForum forumView = new FrameForum();
+        forumView.setVisible(true);
+        Ecouteur ec = new Ecouteur(forumView, forumModel);
     }
 }

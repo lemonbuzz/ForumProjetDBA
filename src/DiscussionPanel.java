@@ -1,3 +1,5 @@
+import org.bson.types.ObjectId;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,16 +23,17 @@ public class DiscussionPanel extends JPanel {
 	private JLabel lblDeleteicon;
 	private JLabel lblNumbreMessage;
 	private JLabel lblDateDernierMessage;
+	private ObjectId _id;
 
 	/**
 	 * Create the panel.
 	 */
-	public DiscussionPanel(String discussion, int nbMessage, String lastDate, int index, Ecouteur ec) {
+	public DiscussionPanel(String discussion, int nbMessage, String lastDate, ObjectId _id, Ecouteur ec) {
 		setBackground(new Color(255, 255, 255));
 		this.discussion = discussion;
 		this.nbMessage = nbMessage;
 		this.lastDate = lastDate;
-		this.index = index;
+		this._id = _id;
 		this.ec = ec;
 		this.setPreferredSize(new Dimension(923, 80));
 		setLayout(null);
@@ -55,7 +58,7 @@ public class DiscussionPanel extends JPanel {
 		lblNbmsg.setFont(font);
 		add(lblNbmsg);
 		
-		lblDateDernierMessage = new JLabel("Dernière modification");
+		lblDateDernierMessage = new JLabel("DerniÃ¨re modification");
 		lblDateDernierMessage.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDateDernierMessage.setBounds(515, 0, 127, 80);
 		lblDateDernierMessage.setFont(font);
@@ -123,6 +126,12 @@ public class DiscussionPanel extends JPanel {
 	public void setEc(Ecouteur ec) {
 		this.ec = ec;
 	}
-	
 
+	public ObjectId get_id() {
+		return _id;
+	}
+
+	public void set_id(ObjectId _id) {
+		this._id = _id;
+	}
 }

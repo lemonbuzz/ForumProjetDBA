@@ -28,6 +28,7 @@ public class ForumMainMenu extends JFrame {
     public ForumMainMenu(Forum forum) {
         this.forum = forum;
         ec = new Ecouteur();
+        this.setResizable(false);
 
         setTitle("CVM - FORUM");
         setBounds(100, 100, 896, 475);
