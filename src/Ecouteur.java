@@ -1,8 +1,12 @@
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -17,16 +21,20 @@ public class Ecouteur implements MouseListener{
 		private Color rebeccapurple = new Color(41, 128, 185);
 		private Color wistful = new Color(102, 51, 153);
 		private Color alizarin = new Color(231, 76, 60);
-		
+
+		private ObjectId currentDiscussion;
+		private int currentIndex;
+
 		public Ecouteur(FrameForum frameForum, Forum forum){
 			this.frameForum = frameForum;
 			this.forum = forum;
-			frameForum.addListenerToPanelMessage(this);
 			frameForum.addAddLabelListener(this);
 			frameForum.addDialogListeners(this);
+			frameForum.addListenerTolblSendIcon(this);
 
 			frameForum.addBtnBackToThread(this);
 			refreshListeThreads();
+
 		}
 
 		@Override
@@ -36,36 +44,45 @@ public class Ecouteur implements MouseListener{
 				if(lblBtn.getText().equals("deleteMsg"))
 					System.out.println("Im gonna delete this message");
 				else if(lblBtn.getText().equals("deleteThread")){
-					System.out.println("YO");
+					System.out.println("ima delete");
 					DiscussionPanel discussion = (DiscussionPanel)lblBtn.getParent();
+					System.out.println("ENFIN TABARNAQUE " + discussion.get_id());
 					forum.supprimerDiscution(discussion.get_id());
 					refreshListeThreads();
 				}
-				else if(lblBtn.getText().equals("send")) {
-				}
-				else if(lblBtn.getText().equals("login"))
-					System.out.println("Im gonna login message");
-				else if(lblBtn.getText().equals("backToThreads")){
-					this.frameForum.nextPanel();
-				}
-				else if (lblBtn.getText().equals("add")) {
-					System.out.println("IM GONNA ADD A THREAD");
-					frameForum.startDialog();
-				}
-				else if (lblBtn.getText().equals("sendThread")) {
-					System.out.println("YOOO");
-					if(frameForum.isThreadCreated()) {
+				else {
+					if (lblBtn.getText().equals("sendMessage")) {
+						System.out.println("send message");
 						try {
-							forum.addDiscution(frameForum.getCreatedDicussion().getTitre(), frameForum.getCreatedDicussion().getUnMessage());
-							refreshListeThreads();
-							frameForum.getDialog().clearChampsTextes();
+							System.out.println("TEXT TO ADD" + frameForum.getTxtpnTextReply().getText());
+							forum.addMessage(frameForum.getTxtpnTextReply().getText(), currentDiscussion);
+							refreshPanelMessages(currentIndex);
+							frameForum.setTextReply();
 						} catch (ParseException e1) {
 							e1.printStackTrace();
 						}
+
+
+					} else if (lblBtn.getText().equals("login"))
+						System.out.println("Im gonna login message");
+					else if (lblBtn.getText().equals("backToThreads")) {
+						this.frameForum.nextPanel();
+					} else if (lblBtn.getText().equals("add")) {
+						System.out.println("IM GONNA ADD A THREAD");
+						frameForum.startDialog();
+					} else if (lblBtn.getText().equals("sendThread")) {
+						System.out.println("YOOO");
+						if (frameForum.isThreadCreated()) {
+							try {
+								forum.addDiscution(frameForum.getCreatedDicussion().getTitre(), frameForum.getCreatedDicussion().getUnMessage());
+								refreshListeThreads();
+								frameForum.getDialog().clearChampsTextes();
+							} catch (ParseException e1) {
+								e1.printStackTrace();
+							}
+						}
 					}
 				}
-
-
 			}
 			else if(e.getSource() instanceof MessagePanel){
 				if(wasPanelClicked){
@@ -80,18 +97,47 @@ public class Ecouteur implements MouseListener{
 			}
 			else if(e.getSource() instanceof DiscussionPanel){
 				System.out.println("ok on DiscussionPanel");
+
+				DiscussionPanel panel = (DiscussionPanel)e.getComponent();
+				currentDiscussion = panel.get_id();
+				currentIndex = panel.getIndex();
+						System.out.printf("YO" + String.valueOf(panel.get_id()));
+				try {
+					//System.out.println(forum.getDicussions().elementAt(panel.getIndex()).getVectMessages().get(panel.getIndex()).get("_id"));
+					refreshPanelMessages(panel.getIndex());
+					frameForum.setDescussionLabel(panel.getDiscussion());
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 				this.frameForum.nextPanel();
 			}
 		}
 
-	public void refreshListeThreads() {
+	public void	refreshListeThreads() {
 
 		frameForum.setPanelThread(new JPanel());
-
+		int i = 0;
 		for( Discussion discussion : forum.getDicussions() ) {
-
-			frameForum.getPanelThread().add(new DiscussionPanel(discussion.getTitre(), discussion.getNbMessages(), discussion.getDateLastMessage(), discussion.get_id(), this));
+			frameForum.getPanelThread().add(new DiscussionPanel(discussion.getTitre(), discussion.getNbMessages(), discussion.getDateLastMessage(), i, discussion.get_id(), this));
+			i++;
 		}
+
+	}
+
+	public void refreshPanelMessages(int index) throws ParseException {
+
+		frameForum.setPanelMessage(new JPanel());
+		Discussion discussion =  forum.getDicussions().elementAt(index);
+
+
+		for ( Document message : discussion.getVectMessages()) {
+
+			String leMessage = String.valueOf(message.get("message"));
+			String laDate = (String)message.get("date");
+			frameForum.getPanelMessage().add( new MessagePanel("<html>"+leMessage+"</html>", "Guest", laDate, this, index ));
+		}
+
+
 	}
 
 		@Override

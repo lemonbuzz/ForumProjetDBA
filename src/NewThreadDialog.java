@@ -64,7 +64,7 @@ public class NewThreadDialog extends JDialog {
         textField.setColumns(10);
 
         lblNewLabel_1 = new JLabel("New label");
-        lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Alexandre\\IdeaProjects\\ForumProjetDBA\\icons\\delete.png"));
+        lblNewLabel_1.setIcon(new ImageIcon("icons/delete.png"));
         lblNewLabel_1.setBounds(420, 7, 60, 60);
         getContentPane().add(lblNewLabel_1);
         setBackground(Color.DARK_GRAY);

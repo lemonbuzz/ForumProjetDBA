@@ -25,15 +25,17 @@ public class DiscussionPanel extends JPanel {
 	private JLabel lblDateDernierMessage;
 	private ObjectId _id;
 
+
 	/**
 	 * Create the panel.
 	 */
-	public DiscussionPanel(String discussion, int nbMessage, String lastDate, ObjectId _id, Ecouteur ec) {
+	public DiscussionPanel(String discussion, int nbMessage, String lastDate, int index, ObjectId _id, Ecouteur ec) {
 		setBackground(new Color(255, 255, 255));
 		this.discussion = discussion;
 		this.nbMessage = nbMessage;
 		this.lastDate = lastDate;
 		this._id = _id;
+		this.index = index;
 		this.ec = ec;
 		this.setPreferredSize(new Dimension(923, 80));
 		setLayout(null);

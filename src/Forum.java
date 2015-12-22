@@ -29,7 +29,7 @@ public class Forum {
     //*****METHOD TO MODIFY*****TO ADD: AUTHOR OF MESSAGE//
     public Document getMessageDoc(String message) throws ParseException {
 
-        return new Document("message", message).append("date", getDate()); //renvoie un doc bson qui représente UN message **TO ADD: AUTHOR OF MESSAGE**
+        return new Document("message", message).append("date", getDate()).append("_id", new ObjectId()); //renvoie un doc bson qui représente UN message **TO ADD: AUTHOR OF MESSAGE**
     }
     ///////////////////////////////
 
@@ -47,6 +47,10 @@ public class Forum {
     public void supprimerDiscution(ObjectId id) { //delete par ID
 
         collectionDicussions.deleteOne(new Document("_id", id));
+    }
+
+    public void supprimerMessageFromThread(ObjectId objectIdMessage, ObjectId objectIdthread) {
+            collectionDicussions.updateOne( new Document("_id", objectIdthread), new Document("$pull", new Document("messages", new Document("_id", objectIdMessage))));
     }
 
     public Vector<Discussion> getDicussions() { //cette methode renvoie un vecteur contenant toutes les discussions du forum sous forme d'objet contenant le nom du sujet, l'auteur et tous ses messages
@@ -84,5 +88,18 @@ public class Forum {
                 System.out.println(document);
             }
         });
+    }
+
+    public void test() {
+
+        FindIterable<Document> iterable = forumDataBase.getCollection("collectionMessages").find();
+
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                System.out.println(document);
+            }
+        });
+
     }
 }

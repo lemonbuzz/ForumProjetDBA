@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/bson-3.0.4.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/bson-3.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -29,6 +29,15 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/mongodb-driver-core-3.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/Statistic-2.6.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
