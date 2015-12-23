@@ -1,3 +1,5 @@
+import org.bson.types.ObjectId;
+
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
@@ -34,11 +36,12 @@ public class MessagePanel extends JPanel {
 	private String user;
 	private String date;
 	private JLabel lbluserIcon;
+	private ObjectId idMessage;
 
 	/**
 	 * Create the panel.
 	 */
-	public MessagePanel(String massage, String user, String date, Ecouteur ec, int index) {
+	public MessagePanel(String massage, String user, String date, Ecouteur ec, int index, ObjectId idMessage) {
 		setBorder(new LineBorder(new Color(176, 196, 222)));
 		setBackground(Color.WHITE);
 		this.massage = massage;
@@ -46,6 +49,7 @@ public class MessagePanel extends JPanel {
 		this.date = date;
 		this.ec = ec;
 		this.index = index;
+		this.idMessage = idMessage;
 		
 		Font font =  new Font("Arial", Font.BOLD, 12);
 		setLayout(null);
@@ -136,5 +140,13 @@ public class MessagePanel extends JPanel {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public ObjectId getIdMessage() {
+		return idMessage;
+	}
+
+	public void setIdMessage(ObjectId idMessage) {
+		this.idMessage = idMessage;
 	}
 }

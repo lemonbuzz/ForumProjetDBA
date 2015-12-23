@@ -41,8 +41,19 @@ public class Ecouteur implements MouseListener{
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource() instanceof JLabel){
 				JLabel lblBtn = ((JLabel) e.getSource());
-				if(lblBtn.getText().equals("deleteMsg"))
+				if(lblBtn.getText().equals("deleteMsg")) {
 					System.out.println("Im gonna delete this message");
+					MessagePanel panel = (MessagePanel)e.getComponent().getParent();
+
+					ObjectId idMessage;
+					ObjectId idThread;
+					forum.supprimerMessageFromThread( panel.getIdMessage(), currentDiscussion );
+					try {
+						refreshPanelMessages(currentIndex);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+				}
 				else if(lblBtn.getText().equals("deleteThread")){
 					System.out.println("ima delete");
 					DiscussionPanel discussion = (DiscussionPanel)lblBtn.getParent();
@@ -67,6 +78,7 @@ public class Ecouteur implements MouseListener{
 						System.out.println("Im gonna login message");
 					else if (lblBtn.getText().equals("backToThreads")) {
 						this.frameForum.nextPanel();
+						refreshListeThreads();
 					} else if (lblBtn.getText().equals("add")) {
 						System.out.println("IM GONNA ADD A THREAD");
 						frameForum.startDialog();
@@ -117,10 +129,11 @@ public class Ecouteur implements MouseListener{
 
 		frameForum.setPanelThread(new JPanel());
 		int i = 0;
-		for( Discussion discussion : forum.getDicussions() ) {
+		for (Discussion discussion : forum.getDicussions()) {
 			frameForum.getPanelThread().add(new DiscussionPanel(discussion.getTitre(), discussion.getNbMessages(), discussion.getDateLastMessage(), i, discussion.get_id(), this));
 			i++;
 		}
+
 
 	}
 
@@ -134,7 +147,8 @@ public class Ecouteur implements MouseListener{
 
 			String leMessage = String.valueOf(message.get("message"));
 			String laDate = (String)message.get("date");
-			frameForum.getPanelMessage().add( new MessagePanel("<html>"+leMessage+"</html>", "Guest", laDate, this, index ));
+			ObjectId idMessage = (ObjectId)message.get("_id");
+			frameForum.getPanelMessage().add( new MessagePanel("<html>"+leMessage+"</html>", "Guest", laDate, this, index, idMessage  ));
 		}
 
 

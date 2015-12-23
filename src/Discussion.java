@@ -30,8 +30,12 @@ public class Discussion {
     }
 
     public String getDateLastMessage() {
-        int index = vectMessages.size();
-        return (String)vectMessages.get(index-1).get("date");
+        if ( vectMessages.size() != 0) {
+            int index = vectMessages.size();
+            return (String) vectMessages.get(index - 1).get("date");
+        }
+        else
+            return null;
     }
 
     public String getTitre() {

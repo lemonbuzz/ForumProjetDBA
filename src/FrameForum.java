@@ -245,9 +245,9 @@ public class FrameForum extends JFrame {
 	}
 
 	
-	public void addToPanelMessage(String message, String date, Ecouteur ec, int index){
+	public void addToPanelMessage(String message, String date, Ecouteur ec, int index, ObjectId id){
 
-		panelMessage.add(new MessagePanel("<html>" + message + "</html>", "Guest", date, ec, index));
+		panelMessage.add(new MessagePanel("<html>" + message + "</html>", "Guest", date, ec, index, id ));
 
 }
 
