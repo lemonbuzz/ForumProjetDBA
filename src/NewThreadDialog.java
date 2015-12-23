@@ -13,14 +13,14 @@ import javax.swing.JTextField;
 
 
 public class NewThreadDialog extends JDialog {
-    private JLabel lblNewLabel;
+    private JLabel lblSendMessage;
     private JTextArea textArea;
     private JLabel lblMessage;
     private JLabel lblTitreDeLa;
     private JTextField textField;
     private FrameForum frameForum;
     private boolean userSentThread = false;
-    private JLabel lblNewLabel_1;
+    private JLabel lblCancel;
 
 
     /**
@@ -37,10 +37,10 @@ public class NewThreadDialog extends JDialog {
         getContentPane().setBackground(Color.DARK_GRAY);
         getContentPane().setLayout(null);
 
-        lblNewLabel = new JLabel("sendThread");
-        lblNewLabel.setIcon(new ImageIcon("icons/sendIcon.png"));
-        lblNewLabel.setBounds(372, 169, 60, 60);
-        getContentPane().add(lblNewLabel);
+        lblSendMessage = new JLabel("sendThread");
+        lblSendMessage.setIcon(new ImageIcon("icons/sendIcon.png"));
+        lblSendMessage.setBounds(372, 169, 60, 60);
+        getContentPane().add(lblSendMessage);
 
         textArea = new JTextArea();
         textArea.setBounds(21, 169, 341, 148);
@@ -63,14 +63,14 @@ public class NewThreadDialog extends JDialog {
         getContentPane().add(textField);
         textField.setColumns(10);
 
-        lblNewLabel_1 = new JLabel("New label");
-        lblNewLabel_1.setIcon(new ImageIcon("icons/delete.png"));
-        lblNewLabel_1.setBounds(420, 7, 60, 60);
-        getContentPane().add(lblNewLabel_1);
+        lblCancel = new JLabel("New label");
+        lblCancel.setIcon(new ImageIcon("icons/delete.png"));
+        lblCancel.setBounds(420, 7, 60, 60);
+        getContentPane().add(lblCancel);
         setBackground(Color.DARK_GRAY);
 
 
-        lblNewLabel.addMouseListener(new MouseListener() {
+        lblSendMessage.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -101,7 +101,7 @@ public class NewThreadDialog extends JDialog {
             }
         });
 
-        lblNewLabel_1.addMouseListener(new MouseListener() {
+        lblCancel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 userSentThread = false;
@@ -169,23 +169,23 @@ public class NewThreadDialog extends JDialog {
         this.lblMessage = lblMessage;
     }
 
-    public JLabel getLblNewLabel() {
-        return lblNewLabel;
-    }
+    public JLabel getLblSendMessage() {
+		return lblSendMessage;
+	}
 
-    public void setLblNewLabel(JLabel lblNewLabel) {
-        this.lblNewLabel = lblNewLabel;
-    }
+	public void setLblSendMessage(JLabel lblSendMessage) {
+		this.lblSendMessage = lblSendMessage;
+	}
 
-    public JLabel getLblNewLabel_1() {
-        return lblNewLabel_1;
-    }
+	public JLabel getLblCancel() {
+		return lblCancel;
+	}
 
-    public void setLblNewLabel_1(JLabel lblNewLabel_1) {
-        this.lblNewLabel_1 = lblNewLabel_1;
-    }
+	public void setLblCancel(JLabel lblCancel) {
+		this.lblCancel = lblCancel;
+	}
 
-    public JTextArea getTextArea() {
+	public JTextArea getTextArea() {
         return textArea;
     }
 

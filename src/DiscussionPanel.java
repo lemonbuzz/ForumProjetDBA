@@ -60,7 +60,7 @@ public class DiscussionPanel extends JPanel {
 		lblNbmsg.setFont(font);
 		add(lblNbmsg);
 		
-		lblDateDernierMessage = new JLabel("DerniÃ¨re modification");
+		lblDateDernierMessage = new JLabel("Dernière modification");
 		lblDateDernierMessage.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDateDernierMessage.setBounds(515, 0, 127, 80);
 		lblDateDernierMessage.setFont(font);
@@ -82,6 +82,7 @@ public class DiscussionPanel extends JPanel {
 		lblDeleteicon.addMouseListener(ec);
 	}
 	
+	// changeemnt de la coleur du text quand il y a lieu d'un mouseEntered event dans le DiscussionPanel  
 	public void changeForeGroundColor(Color color){
 		lblSujetdescussion.setForeground(color);
 		lblNbmsg.setForeground(color);

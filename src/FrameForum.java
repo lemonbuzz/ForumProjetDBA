@@ -90,12 +90,12 @@ public class FrameForum extends JFrame {
 		lblAjouter = new JLabel("Ajouter");
 		lblAjouter.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		lblAjouter.setForeground(new Color(255, 255, 255));
-		lblAjouter.setBounds(642, 70, 46, 14);
+		lblAjouter.setBounds(816, 66, 46, 14);
 		panelMainMenu.add(lblAjouter);
 		
 		lblAddthreadicon = new JLabel("add");
 		lblAddthreadicon.setIcon(new ImageIcon("icons/addThreadIcon.png"));
-		lblAddthreadicon.setBounds(636, 15, 50, 50);
+		lblAddthreadicon.setBounds(810, 11, 50, 50);
 		panelMainMenu.add(lblAddthreadicon);
 		
 		panelThread = new JPanel();
@@ -181,7 +181,8 @@ public class FrameForum extends JFrame {
 		panelReply.add(lblSendIcon);
 		dialog = new NewThreadDialog(this);
 	}
-
+	
+	// Ajouter un MouseListener au label SendIcon
 	public void addListenerTolblSendIcon(Ecouteur ec){
 		lblSendIcon.addMouseListener(ec);
 	}
@@ -195,7 +196,9 @@ public class FrameForum extends JFrame {
 		dialog.setVisible(true);
 
 	}
-
+	// Fonction retournant vrai ou faux quand un usager ajoute une nouvelle discussion avec le NewThreadDialog
+	// Si usage clique sur le label sendMessage cette fonction renvoie vrai
+	// Si usage decide de clique sur le label cancel la fonction retourne faux
 	public boolean isThreadCreated() {
 
 		if (dialog.isUserSentThread() ) {
@@ -207,51 +210,52 @@ public class FrameForum extends JFrame {
 		}
 
 	}
-
+	
+	// Ajouter un MouseListener au label sendMessage and cancel du NewThreadDialog
 	public void addDialogListeners(Ecouteur ec) {
-		dialog.getLblNewLabel().addMouseListener(ec);
-		dialog.getLblNewLabel_1().addMouseListener(ec);
-
-
-
+		dialog.getLblSendMessage().addMouseListener(ec);
+		dialog.getLblCancel().addMouseListener(ec);
 	}
-
+		
+	// Retourne une Discussion quand le label sendMessage du dialog est cliquer
 	public Discussion getCreatedDicussion() throws ParseException {
-
-
-
  		return new Discussion(dialog.getTextField().getText(),dialog.getTextArea().getText() );
 	}
-
+	
+	// Rafraichissement du panel contenant les Discussions
 	public void setPanelThread(JPanel panelThread) {
 		panelThread.setBounds(0, 0, 944, 700);
 		panelThread.setLayout(new BoxLayout(panelThread, BoxLayout.Y_AXIS));
 		scrollPane.setViewportView(panelThread);
 		this.panelThread = panelThread;
 	}
-
+	
+	// Afficher la prochaine page dans le panelCardLayout
 	public void nextPanel(){
 		CardLayout layout = (CardLayout)panelCardLayout.getLayout();
 		layout.next(panelCardLayout);
 	}
 	
+	// Ajouter un MouseListenerle label BackToThread 
 	public void addBtnBackToThread(Ecouteur ec){
 		lblBackbtn.addMouseListener(ec);
 	}
-
+	
+	// Ajouter un MouseListenerle label Ajoute d'une discussion
 	public void addAddLabelListener(Ecouteur ec) {
 
 		lblAddthreadicon.addMouseListener(ec);
 	}
 
-	
+	// Ajouter un nouveau MessagePanal dans le PanelMessage
+	// La balise <html> perment de bien afficher un paragraphe dans une label
 	public void addToPanelMessage(String message, String date, Ecouteur ec, int index, ObjectId id){
 
 		panelMessage.add(new MessagePanel("<html>" + message + "</html>", "Guest", date, ec, index, id ));
+	}
 
-}
-
-	public String getDate() throws ParseException { //renvoie la date en francais avec le mois abrÃ©gÃ©
+	//renvoie la date en francais avec le mois abrégé
+	public String getDate() throws ParseException { 
 
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm");
@@ -270,7 +274,7 @@ public class FrameForum extends JFrame {
 		return panelMessage;
 	}
 
-
+	// Permet le rafraichissement du panelMessage contenant tous les MessagePanel
 	public void setPanelMessage(JPanel panelMessage) {
 		panelMessage.setBounds(0, 0, this.getWidth()-16, 100);
 		panelMessage.setLayout(new BoxLayout(panelMessage, BoxLayout.Y_AXIS));

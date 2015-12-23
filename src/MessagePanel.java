@@ -57,6 +57,9 @@ public class MessagePanel extends JPanel {
 		lblMessage = new JLabel(massage);
 		lblMessage.setVerticalAlignment(SwingConstants.TOP);
 		lblMessage.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		// Cette fonction permet de dynamiser la hauteur du MessagePanel
+		// Si un message entrer prend plusieur ligne le label contenant le message et le MessagePanel vont s'aggrandir en hauteur (l'axe y)
 		int ypanel = 80;
 		int ymessage = 14;
 		if(massage.length() > 93){
@@ -110,6 +113,7 @@ public class MessagePanel extends JPanel {
 		lblImagegarbage.addMouseListener(ec);
 	}
 	
+	// changeemnt de la coleur du text quand il y a lieu d'un mouseEntered event dans le MessagePanel  
 	public void changeForeGroundColor(Color color){
 		lblMessage.setForeground(color);
 		lblByUser.setForeground(color);
